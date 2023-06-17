@@ -50,12 +50,31 @@ RUN cd; \
     cd ..;\
     tools/ci/download-xs.sh
 
-RUN pip install pandas
-
-RUN cd ~/openmc; \
+RUN pip install pandas; \
+    cd ~/openmc; \
     pip install .
 
 ENV OPENMC_CROSS_SECTIONS="${HOME}/nndc_hdf5/cross_sections.xml" 
 ENV OPENMC_ENDF_DATA="${HOME}/endf-b-vii.1"
-RUN echo ${PATH}
-RUN ls /root/
+
+RUN pip3 install flake8==5.0.4 \
+                  flake8-docstrings==1.6.0 \
+                  black==22.3.0 \
+                  docformatter==1.5.0 \
+                  pytest==6.2.4 \
+                  pytest-cov==3.0.0 \
+                  tables==3.7.0 \
+                  pyyaml==6.0 \
+                  tqdm==4.64.1 \
+                  docformatter==1.5.0 \
+                  scikit-learn==1.0.2 \
+                  optuna==3.0.4 \
+                  sphinx \
+                  sphinxcontrib-katex \
+                  sphinx-numfig \
+                  sphinxcontrib-svg2pdfconverter \
+                  sphinx-rtd-theme \
+                  sphinx_mdinclude \
+                  openpyxl \
+                  xmltodict;
+
