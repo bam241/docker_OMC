@@ -30,8 +30,9 @@ RUN curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/p
 
 
 ENV HOME="/root"
+RUN mkdir ${HOME}/.local
 ENV PYENV_ROOT="$HOME/.pyenv"
-ENV PATH="${PYENV_ROOT}/shims:${PYENV_ROOT}/bin:${PATH}"
+ENV PATH="${PYENV_ROOT}/shims:${PYENV_ROOT}/bin:${HOME}/.local/bin:${PATH}"
 RUN eval "$(pyenv init -)"
 
 RUN pyenv install 3.9.9
@@ -45,9 +46,16 @@ RUN cd; \
     mkdir build && cd build; \
     cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local ..; \
     make -j 4; \
-    make install
+    make install;\
+    cd ..;\
+    tools/ci/download-xs.sh
 
 RUN pip install pandas
 
 RUN cd ~/openmc; \
     pip install .
+
+ENV OPENMC_CROSS_SECTIONS="${HOME}/nndc_hdf5/cross_sections.xml" 
+ENV OPENMC_ENDF_DATA="${HOME}/endf-b-vii.1"
+RUN echo ${PATH}
+RUN ls /root/
