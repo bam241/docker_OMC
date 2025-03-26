@@ -54,8 +54,8 @@ RUN pip install pandas; \
     cd ~/openmc; \
     pip install .
 
-ENV OPENMC_CROSS_SECTIONS="${HOME}/nndc_hdf5/cross_sections.xml" 
-ENV OPENMC_ENDF_DATA="${HOME}/endf-b-vii.1"
+# ENV OPENMC_CROSS_SECTIONS="${HOME}/nndc_hdf5/cross_sections.xml" 
+# ENV OPENMC_ENDF_DATA="${HOME}/endf-b-vii.1"
 
 RUN pip3 install flake8==5.0.4 \
                   flake8-docstrings==1.6.0 \
